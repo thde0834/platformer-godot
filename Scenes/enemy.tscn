@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0ycu8q253o3p"]
+
+[ext_resource type="PackedScene" uid="uid://dlh0ot4ti062n" path="res://Scenes/player.tscn" id="1_iwolf"]
+[ext_resource type="Script" path="res://Scenes/BehaviourComponent.cs" id="2_7d6uc"]
+
+[node name="Enemy" instance=ExtResource("1_iwolf")]
+
+[node name="VelocityComponent" parent="." index="0"]
+maxSpeed = 300.0
+acceleration = 200.0
+jumpVelocity = -400.0
+
+[node name="BehaviourComponent" type="Node" parent="." index="2"]
+script = ExtResource("2_7d6uc")

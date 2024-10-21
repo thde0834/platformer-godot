@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlh0ot4ti062n"]
+
+[ext_resource type="Script" path="res://Scripts/ECS/Entity/Entity.cs" id="1_kexvq"]
+[ext_resource type="Script" path="res://Scripts/ECS/Component/VelocityComponent.cs" id="2_t52ql"]
+[ext_resource type="Script" path="res://Scripts/ECS/System/MovementSystem.cs" id="3_g0xqq"]
+[ext_resource type="Script" path="res://Scripts/ECS/Component/InputComponent.cs" id="4_2lfw2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6qaf"]
+size = Vector2(10, 10)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gdvdv"]
+
+[node name="Player" type="RigidBody2D"]
+script = ExtResource("1_kexvq")
+
+[node name="VelocityComponent" type="Node" parent="."]
+script = ExtResource("2_t52ql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i6qaf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = SubResource("CanvasTexture_gdvdv")
+
+[node name="MovementSystem" type="Node" parent="."]
+script = ExtResource("3_g0xqq")
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("4_2lfw2")

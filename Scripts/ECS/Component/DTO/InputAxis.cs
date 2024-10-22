@@ -4,7 +4,7 @@ using System;
 public readonly struct InputAxis {
     public double Value { get; init; }
 
-    public InputAxis(double positive, double negative) {
-        Value = positive - negative;
+    public InputAxis(IComparable positive, IComparable negative) {
+        Value = positive.CompareTo(negative);
     }
 }

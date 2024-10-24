@@ -10,6 +10,7 @@ public partial class Entity : RigidBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		base._Ready();
 		Systems = GetChildren().Where(child => child is BaseSystem).Cast<BaseSystem>().ToList();
 	}
 

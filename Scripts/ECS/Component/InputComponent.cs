@@ -25,20 +25,18 @@ public partial class InputComponent : BaseComponent<Node2D>
 			.Select(it => GetCachedType(it))
 			.Where(type => type != null)
 			.ToList()
-			.ForEach(type => {
+			.ForEach(type => 
 				activeInput[type] = @event.IsActionPressed(type.Name, true) 
 					? 1f 
-					: 0f;
-				GD.Print(type + ": " + activeInput[type]);
-			});
+					: 0f
+			);
 	}
 
 	private InputType GetCachedType(InputEvent @event) {
-		InputType value;
-		return actionCache.TryGetValue(@event, out value)
+		return actionCache.TryGetValue(@event, out InputType value)
 			? value
 			: actionCache[@event] = InputType.GetAll<InputType>()
-					.FirstOrDefault(value => @event.IsAction(value.Name, true));
+					.FirstOrDefault(type => @event.IsAction(type.Name, true));
 	}
 
 	public List<KeyValuePair<InputType, float>> GetActiveInput() {

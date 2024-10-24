@@ -1,4 +1,3 @@
-
 public class InputType : Enumeration {
     public static InputType Up = new(1, "ui_up");
     public static InputType Down = new(2, "ui_down");

@@ -6,5 +6,10 @@ public abstract partial class BaseSystem : Node {
     public virtual void OnTick(double delta) {}
     public virtual void OnTickPhysics(double delta) {}
 
+    // public abstract void All();
 
+    public override void _Ready()
+    {
+        base._Ready();
+    }
 }

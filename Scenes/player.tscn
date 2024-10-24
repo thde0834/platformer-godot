@@ -23,8 +23,10 @@ shape = SubResource("RectangleShape2D_i6qaf")
 scale = Vector2(10, 10)
 texture = SubResource("CanvasTexture_gdvdv")
 
-[node name="MovementSystem" type="Node" parent="."]
+[node name="MovementSystem" type="Node" parent="." node_paths=PackedStringArray("inputComponent")]
+unique_name_in_owner = true
 script = ExtResource("3_g0xqq")
+inputComponent = NodePath("../InputComponent")
 
 [node name="InputComponent" type="Node" parent="."]
 script = ExtResource("4_2lfw2")

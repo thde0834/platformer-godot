@@ -1,8 +1,8 @@
 using Godot;
 
 public interface IUniqueNode {
-    public static string GetUniqueName<T>() where T : Node 
+    public string GetUniqueName()
     {
-        return "%" + typeof(T).Name;
+        return "%" + this.GetType().Name;
     }
 }

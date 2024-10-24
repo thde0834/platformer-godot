@@ -5,13 +5,23 @@ using System.Linq;
 
 public partial class Entity : RigidBody2D
 {
-	private List<BaseSystem> Systems;
+	private Dictionary<Type, BaseComponent> Components;
+	private Dictionary<Type, BaseSystem> Systems;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		base._Ready();
-		Systems = GetChildren().Where(child => child is BaseSystem).Cast<BaseSystem>().ToList();
+		Components = GetChildren().OfType<BaseComponent>().ToDictionary(child => child.GetType());
+		Systems = GetChildren().OfType<BaseSystem>().ToDictionary(child => child.GetType());
+
+		Systems.Values.ToList().ForEach(system => 
+			system.SetComponents(
+				Components
+					.Where(kv => system.DefineComponents().Contains(kv.Key))
+					.ToDictionary(kv => kv.Key, kv => kv.Value)
+			)
+		);	
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,7 +32,6 @@ public partial class Entity : RigidBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Systems.ForEach(system => system.OnTickPhysics(delta));
-
+		Systems.Values.ToList().ForEach(system => system.OnTickPhysics(delta));
 	}
 }

@@ -6,8 +6,7 @@ using System.Collections.Generic;
 public partial class InputComponent : BaseComponent<Node2D> 
 {	
 	private Dictionary<InputType, float> activeInput = new();
-
-	private Dictionary<InputEvent, InputType> actionCache = new();
+	private Dictionary<InputEvent, InputType> inputTypeCache = new();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,20 +21,19 @@ public partial class InputComponent : BaseComponent<Node2D>
 	{
 		Enumerable.Repeat(@event, 1)
 			.Where(it => !it.IsEcho())
-			.Select(it => GetCachedType(it))
+			.Select(it => GetCachedInputType(it))
 			.Where(type => type != null)
 			.ToList()
 			.ForEach(type => 
 				activeInput[type] = @event.IsActionPressed(type.Name, true) 
 					? 1f 
-					: 0f
-			);
+					: 0f);
 	}
 
-	private InputType GetCachedType(InputEvent @event) {
-		return actionCache.TryGetValue(@event, out InputType value)
+	private InputType GetCachedInputType(InputEvent @event) {
+		return inputTypeCache.TryGetValue(@event, out InputType value)
 			? value
-			: actionCache[@event] = InputType.GetAll<InputType>()
+			: inputTypeCache[@event] = InputType.GetAll<InputType>()
 					.FirstOrDefault(type => @event.IsAction(type.Name, true));
 	}
 

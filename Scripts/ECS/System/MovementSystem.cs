@@ -3,9 +3,9 @@ using System;
 
 public partial class MovementSystem : BaseSystem
 {
-	public override Type[] DefineComponents()
+	public override Type[] DefineComponentTypes()
     {
-        return new Type[] { typeof(InputComponent), };
+        return new Type[] { typeof(InputComponent), typeof(VelocityComponent) };
     }
 	
 	// Called when the node enters the scene tree for the first time.

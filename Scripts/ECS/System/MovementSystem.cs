@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class MovementSystem : BaseSystem
 {
@@ -8,16 +9,12 @@ public partial class MovementSystem : BaseSystem
         return new Type[] { typeof(InputComponent), typeof(VelocityComponent) };
     }
 	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public override void OnPhysicsProcess(double delta)
 	{
-		base._Ready();
-		// fails if system ready() runs before component ready()
-		// move init logic to constructor?
-	}
-	
-	public override void OnTickPhysics(double delta)
-	{
-		GetComponent<InputComponent>().GetActiveInput().ForEach(kv => GD.Print(kv));
+		GetComponent<InputComponent>()
+			.GetActiveInput()
+			.Where(input => input.Key == InputType.Space)
+			.ToList()
+			.ForEach(_ => GetComponent<VelocityComponent>().Jump());
 	}
 }
